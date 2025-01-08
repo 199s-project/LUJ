@@ -95,19 +95,16 @@
 		SELECT 
 	           *,
 	            concat('quot', quot_num) as this_num
-	            
 	       FROM 
 	           quotation
-	       GROUP BY 
-	           quotation.quot_num
 	      union ALL
 	        SELECT
 	         *,
 	           concat('order', orderform_num) as this_num
 	       FROM 
 	           orderform
-	       GROUP BY 
-	           orderform.orderform_num;
+	       order BY 
+	           quot_regdate;
 	</select>
 	
 	
@@ -219,6 +216,8 @@
 		from orderformdetail
 		where orderform_num = #{orderform_num}
 	</select>
+
+
 
 
 </mapper>

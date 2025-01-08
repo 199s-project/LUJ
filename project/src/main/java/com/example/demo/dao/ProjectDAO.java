@@ -80,4 +80,6 @@ public interface ProjectDAO {
 	
 	List<OrderformDetailVO> getOrderformDetailListByOrderformnum(int orderform_num);
 	
+// new 작업공간 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	
 }

@@ -197,8 +197,8 @@ public class ProjectService {
 	    	int result = projectDAO.insertOrderformDetail(orderformDetailVO);
     	}
     	
-    	
-    	mv.setViewName("orderformDetail");
+    	mv.addObject("msg", "등록 완료");
+    	mv.setViewName("purchaseContract");
     	return mv;
     }
     
@@ -271,8 +271,8 @@ public class ProjectService {
     		
     		int result = projectDAO.insertQuotationDetail(quotationDetailVO);
     	}
-    	
-    	mv.setViewName("quotationDetail");
+    	mv.addObject("msg", "등록 완료");
+    	mv.setViewName("salesContract");
     	return mv;
     }
         
@@ -372,6 +372,6 @@ public class ProjectService {
 		return mv;
 	}
 	
- 
+// ---------------new 작업공간 ---------------------------- 
 
 }

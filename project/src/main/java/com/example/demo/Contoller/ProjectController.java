@@ -238,7 +238,6 @@ public class ProjectController {
  	   
     	List<OrderformVO> list = projectService.orderList();
         model.addAttribute("orderList", list);
-        log.info("list",list);
         return "purchaseContract";
         
     }
@@ -249,7 +248,6 @@ public class ProjectController {
  	   
  	   List<QuotationVO> list = projectService.quotationList();
         model.addAttribute("quotationList", list);
-        log.info("list",list);
  	   return "salesContract";
     }
     
@@ -272,8 +270,9 @@ public class ProjectController {
     // 구매계약서 등록
     @PostMapping("postOrderformRegister")
     public ModelAndView postOrderformRegister(@RequestParam Map<String,Object> map) throws Exception {
-    	
     	mv = projectService.postOrderformRegister(map);
+    	List<OrderformVO> list = projectService.orderList();
+    	mv.addObject("orderList", list);
     	
         return mv;
     }
@@ -291,6 +290,8 @@ public class ProjectController {
  		   @RequestParam Map<String,Object> map
  		   ) throws Exception {
  	   mv = projectService.postQuotationRegister(map);
+ 	   List<QuotationVO> list = projectService.quotationList();
+ 	   mv.addObject("quotationList", list);
  	   return mv;
     }
     

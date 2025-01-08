@@ -53,6 +53,15 @@ th.sorting, th.table-plus.datatable-nosort.sorting_asc {
 
 </head>
 <body>
+
+<div th:if="${msg != null}">
+	<script th:inline="javascript">
+		var msg = [[${msg}]];
+		alert(msg);
+		msg = null;
+	</script>
+</div>
+
  <div th:replace="~{/include/header}"></div>
    <div class="mobile-menu-overlay"></div>
 
