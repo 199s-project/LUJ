@@ -68,6 +68,23 @@ public interface ProjectDAO {
 
 	int insertQuotationDetail(QuotationDetailVO quotationDetailVO);
 	
+
+	// ------------------------------------------------------
+	
+	int companyNameValidation(String company_name);
+	
+	int companyCodeValidation(String company_code);
+	
+	List<ProductVO> productList();
+	
+	int fileAmount(int product_num);
+	
+	FileVO findFirstImage(int product_num);
+	
+	ProductVO getProductDetail(int product_num);
+	
+	List<FileVO> getProductImages(int product_num);
+
 // new 작업공간 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	
 	QuotationVO getQuotationByQuotnum(int quot_num);
@@ -79,7 +96,6 @@ public interface ProjectDAO {
 	OrderformVO getOrderformByOrderformnum(int orderform_num);
 	
 	List<OrderformDetailVO> getOrderformDetailListByOrderformnum(int orderform_num);
-	
-// new 작업공간 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 	
 }

@@ -197,8 +197,8 @@ public class ProjectService {
 	    	int result = projectDAO.insertOrderformDetail(orderformDetailVO);
     	}
     	
-    	mv.addObject("msg", "등록 완료");
-    	mv.setViewName("purchaseContract");
+    	
+    	mv.setViewName("orderformDetail");
     	return mv;
     }
     
@@ -271,8 +271,8 @@ public class ProjectService {
     		
     		int result = projectDAO.insertQuotationDetail(quotationDetailVO);
     	}
-    	mv.addObject("msg", "등록 완료");
-    	mv.setViewName("salesContract");
+    	
+    	mv.setViewName("quotationDetail");
     	return mv;
     }
         
@@ -284,6 +284,42 @@ public class ProjectService {
 	public ProductVO getProductByProductName(String product_name) {
 		return projectDAO.getProductByProductName(product_name);
 	}
+
+
+	
+	
+
+	// -----------------------------------------------------------------------------
+
+
+	public int companyNameValidation(String company_name) {
+		return projectDAO.companyNameValidation(company_name);
+	}
+	public int companyCodeValidation(String company_code) {
+		return projectDAO.companyCodeValidation(company_code);
+	}
+
+	public List<ProductVO> productList() {
+		return projectDAO.productList();
+	}
+	
+	
+	public int fileAmount(int product_num) {
+		return projectDAO.fileAmount(product_num);
+	}
+	
+	public FileVO findFirstImage(int product_num) {
+		return projectDAO.findFirstImage(product_num);
+	}
+	
+	public ProductVO getProductDetail (int product_num) {
+		return projectDAO.getProductDetail(product_num);
+	}
+
+	public List<FileVO> getProductImages(int product_num) {
+		return projectDAO.getProductImages(product_num);
+	}
+	
 
 
 // ---------------new 작업공간 ----------------------------
@@ -372,6 +408,5 @@ public class ProjectService {
 		return mv;
 	}
 	
-// ---------------new 작업공간 ---------------------------- 
-
+ 
 }
