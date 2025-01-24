@@ -160,6 +160,14 @@ table.multiple-select-row {
 	border:none;
 	outline:none;
 }
+
+	.ui-menu {
+		z-index: 2000 !important;
+		max-height: 130px !important;
+		overflow-y: auto !important;
+		overflow-x: hidden !important;
+	}
+
 </style>
 
   
@@ -361,9 +369,8 @@ async function updateRecipe(recipe_num) {
 <script>
 
 function rowmaterialChange(event) {
-	console.log("들어오니?");
 	const currentInput = event.target;
-	const currentid = currentInput.id;
+	const currentId = currentInput.id;
 	const currentValue = currentInput.value.trim();
 	const allInputs = document.querySelectorAll('.material-name-input');
 	
@@ -384,6 +391,35 @@ function rowmaterialChange(event) {
 	}
 }
 
+$(document).on("focus", ".material-name-input", function() {
+	const $this = $(this);
+	$.ajax({
+		url: "/getMaterialNameList",
+		type: "POST",
+		dataType: "json",
+		success: function(data) {
+			$this.autocomplete({
+				source: data,
+				minLength: 0,	
+				select: function(event, ui) {
+					$this.val(ui.item.value);
+					return false;
+				},
+				position: {
+					my: "left top",
+					at: "left bottom",
+					of: $this,
+				},	
+			});
+			
+			$this.autocomplete("search", "");
+			
+		},
+		error: function (xhr, status, error) {
+			console.error("에러: ", error);
+		},
+	});
+});
 
 </script>
 
@@ -499,6 +535,9 @@ function rowmaterialChange(event) {
    <script src="src/plugins/datatables/js/vfs_fonts.js"></script>
    <!-- Datatable Setting js -->
    <script src="vendors/scripts/datatable-setting.js"></script>
+   
+   	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
    
 
    
