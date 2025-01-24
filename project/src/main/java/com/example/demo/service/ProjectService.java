@@ -661,7 +661,7 @@ public class ProjectService {
 		int recipe_num = Integer.parseInt((String)map.get("recipe-input4"));
 		String product_code = (String)map.get("recipe-input1");
 		String product_name = (String)map.get("recipe-input2");
-		int recipe_price = Integer.parseInt((String)map.get("recipe_input3"));
+		int recipe_price = Integer.parseInt((String)map.get("recipe-input3"));
 		
 		RecipeVO recipeVO = new RecipeVO();
 		recipeVO.setRecipe_num(recipe_num);
@@ -688,10 +688,9 @@ public class ProjectService {
 				continue;
 			}
 			
-			recipeDetailVO.setRecipe_num(rd_num);
+			recipeDetailVO.setRd_num(rd_num);
 			recipeDetailVO.setMaterial_name(material_name);
 			recipeDetailVO.setMaterial_amount(material_amount);
-			
 			int result2 = projectDAO.updateRecipeDetail(recipeDetailVO);
 			
 		}

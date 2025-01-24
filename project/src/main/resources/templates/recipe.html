@@ -265,7 +265,7 @@ async function updateRecipe(recipe_num) {
 		detailHTML += `
 			<tr>
 				<td class="heading-td"> 레시피${count} </td>
-				<td><input type="text" id="material-name-input` + count + `" class="swal2-input material-name-input" value="${recipeDetailVO.material_name}" autocomplete="off" required>
+				<td><input type="text" id="material-name-input` + count + `" class="swal2-input material-name-input" value="${recipeDetailVO.material_name}" onblur="rowmaterialChange(event)" autocomplete="off" required>
 					<input type="text" id="material-amount-input` + count + `" class="swal2-input material-amount-input" placeholder="레시피 수량" value="${recipeDetailVO.material_amount}" autocomplete="off" required>
 					<input type="hidden" id="recipedetail-num` + count + `" value="${recipeDetailVO.rd_num}">
 				</td>
@@ -360,58 +360,30 @@ async function updateRecipe(recipe_num) {
 
 <script>
 
-function company_nameValidation() {
-	var company_name = $("#company-input1").val();
-	var member_num = $("#company-input7").val();
-	if (!company_name) {
-		$('.company-name-validation-result').attr('value', '');
-	} else {
-		$.ajax({
-			type: "POST",
-			url: "/memberIdValidation",
-			data: {member_id : company_name, member_num : member_num},
-			success: function(cnt) {
-				if (cnt > 0) {
-					$('.company-name-validation-result').attr('value', '사용불가');
-					$('.company-name-validation-result').css({
-						"color" : "red",
-					});
-				} else {
-					$('.company-name-validation-result').attr('value', '사용가능');
-					$('.company-name-validation-result').css({
-						"color" : "green",
-					});
-				}
-			}
-		});
+function rowmaterialChange(event) {
+	console.log("들어오니?");
+	const currentInput = event.target;
+	const currentid = currentInput.id;
+	const currentValue = currentInput.value.trim();
+	const allInputs = document.querySelectorAll('.material-name-input');
+	
+	const k = currentId.replace('material-name-input', '');
+	const materialAmountInput = document.getElementById(`material-amount-input${k}`);
+	
+	let isDuplicate = false;
+	allInputs.forEach(input => {
+		if (input !== currentInput && input.value.trim() === currentValue) {
+			isDuplicate = true;
+		}
+	});
+	
+	if (isDuplicate) {
+		alert('이미 동일한 값이 입력되어 있습니다.');
+		currentInput.value= '';
+		if (materialAmountInput) materialAmountInput.value = '';
 	}
 }
 
-function company_codeValidation() {
-	var company_code = $("#company-input2").val();
-	if (!company_code) {
-		$('.company-code-validation-result').attr('value', '');
-	} else {
-		$.ajax({
-			type: "POST",
-			url: "/companyCodeValidation",
-			data: {company_code : company_code},
-			success: function(cnt) {
-				if (cnt > 0) {
-					$('.company-code-validation-result').attr('value', '사용불가');
-					$('.company-code-validation-result').css({
-						"color" : "red",
-					});
-				} else {
-					$('.company-code-validation-result').attr('value', '사용가능');
-					$('.company-code-validation-result').css({
-						"color" : "green",
-					});
-				}
-			}
-		});
-	}
-}
 
 </script>
 

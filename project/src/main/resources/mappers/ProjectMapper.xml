@@ -569,10 +569,7 @@
 	
 	<update id="updateRecipeDetail" parameterType="RecipeDetailVO">
 		update recipedetail
-		set	
-			material_name = #{material_name}, 
-			material_amount = #{material_amount},
-			material_price = #{material_price}
+		set	material_name = #{material_name}, material_amount = #{material_amount}
 		where rd_num = #{rd_num}
 	</update>
 	
