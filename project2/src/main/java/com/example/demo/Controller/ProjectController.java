@@ -974,6 +974,15 @@ public class ProjectController {
 	    int cnt = projectService.materialNameCheck(material_name);
 	    return cnt;
 	}
+    
+	@ResponseBody
+	@PostMapping("/orderformDelete")
+	public int orderformDelete(@RequestParam("orderform_num") int orderform_num) throws Exception{
+	    int result = projectService.deleteOrderform(orderform_num);
+	    int result2 = projectService.deleteOrderformDetail(orderform_num);
+	    
+		return result;
+	}
 
     
  // -------------------------new 작업공간(이의재) -------------------------    

@@ -846,6 +846,16 @@
 		AND inven_type = 0
 	</update>
 	
+	<delete id="deleteOrderform" parameterType="int">
+		delete from orderform
+		where orderform_num = #{orderform_num}
+	</delete>
+	
+	<delete id="deleteOrderformDetail" parameterType="int">
+		delete from orderformdetail
+		where orderform_num = #{orderform_num}
+	</delete>
+	
 	
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@new 작업공간@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 이의재  끝 -->
 

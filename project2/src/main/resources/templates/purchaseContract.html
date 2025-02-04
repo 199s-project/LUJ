@@ -82,11 +82,9 @@ div.btn-group {
 
 <script>
 function orderformProceed(orderform_num) {
-	console.log("orderformProceed 시작");
-	console.log(orderform_num);
 	Swal.fire({
-		title: "Are you sure?",
-		text: "You won't be able to revert this!",
+		title: "다시 한번 더 확인하세요.",
+		text: "다시 되돌릴 수 없습니다.",
 		icon: "warning",
 		showCancelButton: true,
 		confirmButtonColor: "#3085d6",
@@ -99,7 +97,6 @@ function orderformProceed(orderform_num) {
 		}
 	}).then((result) => {
 		if (result.isConfirmed) {
-			console.log("ajax 들어갑니다.");
 			$.ajax({
 				url: "/orderformProceed",
 				type: "POST",
@@ -116,12 +113,50 @@ function orderformProceed(orderform_num) {
 				}
 			});
 		} else {
-			Swal.fire("실패", "오류가 발생했습니다.", "error");
+			Swal.fire("실패", "다시 시도해주세요.", "error");
 		}
 		
 	});
 }
 
+
+function orderformDelete(orderform_num) {
+	Swal.fire({
+		title: "다시 한번 더 확인하세요.",
+		text: "다시 되돌릴 수 없습니다.",
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: "#d33",
+		confirmButtonText: "삭제",
+		preconfirm:() => {
+			return {
+				orderform_num : orderform_num
+			}
+		}
+	}).then((result) => {
+		if (result.isConfirmed) {
+			$.ajax({
+				url: "/orderformDelete",
+				type: "POST",
+				data: {orderform_num : orderform_num},
+				success: function(cnt) {
+					if (cnt == 0) {
+						Swal.fire("실패", "오류가 발생했습니다.", "error");
+					} else {
+						Swal.fire("성공", "정상적으로 삭제처리 되었습니다.", "success")
+						.then(result => {
+							location.reload();
+						});
+					}
+				}
+			});
+		} else {
+			Swal.fire("실패", "다시 시도해주세요.", "error");
+		}
+		
+	});
+}
 
 </script>
 
@@ -201,8 +236,8 @@ function orderformProceed(orderform_num) {
 											<td><th:block th:text="${form.orderform_stat}"></th:block></td>
 											<td>
 												<th:block th:if="${form.orderform_stat == '진행중'}">
-													<span class="badge badge-warning" th:onclick="orderformProceed([[${form.orderform_num}]])" style="cursor:pointer;">출고</span>
-													<span class="badge badge-reject" th:onclick="orderformProceed([[${form.orderform_num}]])" style="cursor:pointer;">취소</span>
+													<span class="badge badge-warning" th:onclick="orderformProceed([[${form.orderform_num}]])" style="cursor:pointer;">입고</span>
+													<span class="badge badge-reject" th:onclick="orderformDelete([[${form.orderform_num}]])" style="cursor:pointer;">취소</span>
 												</th:block>
 											</td>
 										</tr>

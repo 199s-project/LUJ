@@ -959,7 +959,13 @@ public class ProjectService {
 		return projectDAO.getFindInvenList(product_name);
 	}
 		
-		
+	public int deleteOrderform(int orderform_num) {
+		return projectDAO.deleteOrderform(orderform_num);
+	}
+	
+	public int deleteOrderformDetail(int orderform_num) {
+		return projectDAO.deleteOrderformDetail(orderform_num);
+	}
 		
 // ---------------------김민성---------------------------------	
 	

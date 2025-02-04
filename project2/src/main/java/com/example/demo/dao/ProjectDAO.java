@@ -324,6 +324,10 @@ public interface ProjectDAO {
    
    int updateMaterialInvenPrice(AvgMaterialpriceVO avgMaterialpriceVO);
    
+   int deleteOrderform(int orderform_num);
+   
+   int deleteOrderformDetail(int orderform_num);
+   
 // new 작업공간 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 이의재 끝   
    
 }
