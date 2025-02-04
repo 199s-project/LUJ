@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+<style>
+
+#DataTables_Table_0_wrapper {
+	width: 96% !important;
+	margin-left: 2% !important;
+}
+
+table.bestseller-table {
+	text-align: center !important;
+	
+	th.sorting_asc, th.sorting {
+		padding-right: 16px !important;
+	}
+	
+	td.sorting_1 {
+		pointer-events: none;
+		padding-left: 16px !important;
+	}
+	
+	td.table-plus::before {
+		content: none !important;
+	}
+}
+
+th.table-plus.datatable-nosort.sorting_asc::before, 
+th.table-plus.datatable-nosort.sorting_asc::after,
+th.sorting::before, th.sorting::after {
+	content: none !important;
+}
+th.sorting, th.table-plus.datatable-nosort.sorting_asc {
+	pointer-events: none; /* 클릭 비활성화 */
+}
+
+
+
+ /* 캘린더 스타일 */
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);  /* 7일 */
+      gap: 5px;
+      width: 100%;
+      height: 500px;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+    .calendar .cell {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+      position: relative;
+    }
+    .event {
+      position: absolute;
+      bottom: 5px;
+      left: 0;
+      width: 100%;
+      height: 5px;
+    }
+    .event.sales {
+      background-color: #ff5733;
+    }
+    .event.purchase {
+      background-color: #33aaff;
+    }
+    .event.production {
+      background-color: #33ff77;
+    }
+    
+     /* 내비게이션 버튼 스타일 */
+    .nav-buttons {
+      text-align: center;
+      margin: 10px;
+    }
+    .nav-buttons button {
+      padding: 10px;
+      font-size: 16px;
+    }
+
+.low-stock-container {
+    width: 100%;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.low-stock-container h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.table-wrapper {
+    max-height: 300px; /* 최대 5개 행이 보이도록 설정 */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.low-stock {
+    border: 2px solid #ff4d4d; /* 연한 빨간색 테두리 */
+    font-weight: bold;
+    color: #ff4d4d;
+}
+
+.no-stock {
+    text-align: center;
+    font-weight: bold;
+    color: gray;
+}
+
+
+</style>
+
+
+</head>
+<body>
+	<div th:replace="~{/include/header}"></div>
+	<div class="mobile-menu-overlay"></div>
+
+	<div class="main-container">
+		<div class="pd-ltr-20">
+			<div class="card-box pd-20 height-100-p mb-30">
+				<div class="row align-items-center">
+					<div class="col-md-4">
+						<img src="vendors/images/banner-img.png" alt="">
+					</div>
+					<div class="col-md-8">
+						<h4 class="font-20 weight-500 mb-10 text-capitalize">
+							Welcome back <div class="weight-600 font-30 text-blue">Johnny Brown!</div>
+						</h4>
+						<p class="font-18 max-width-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde hic non repellendus debitis iure, doloremque assumenda. Autem modi, corrupti, nobis ea iure fugiat, veniam non quaerat mollitia animi error corporis.</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xl-3 mb-30">
+					<div class="card-box height-100-p widget-style1">
+						<div class="d-flex flex-wrap align-items-center">
+							<div class="progress-data">
+								<div id="chart"></div>
+							</div>
+							<div class="widget-data">
+								<div class="h4 mb-0">2020</div>
+								<div class="weight-600 font-14">Contact</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-3 mb-30">
+					<div class="card-box height-100-p widget-style1">
+						<div class="d-flex flex-wrap align-items-center">
+							<div class="progress-data">
+								<div id="chart2"></div>
+							</div>
+							<div class="widget-data">
+								<div class="h4 mb-0">400</div>
+								<div class="weight-600 font-14">Deals</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-3 mb-30">
+					<div class="card-box height-100-p widget-style1">
+						<div class="d-flex flex-wrap align-items-center">
+							<div class="progress-data">
+								<div id="chart3"></div>
+							</div>
+							<div class="widget-data">
+								<div class="h4 mb-0">350</div>
+								<div class="weight-600 font-14">Campaign</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-3 mb-30">
+					<div class="card-box height-100-p widget-style1">
+						<div class="d-flex flex-wrap align-items-center">
+							<div class="progress-data">
+								<div id="chart4"></div>
+							</div>
+							<div class="widget-data">
+								<div class="h4 mb-0">$6060</div>
+								<div class="weight-600 font-14">Worth</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xl-8 mb-30">
+					<div class="card-box height-100-p pd-20">
+						<h2 class="h4 mb-20">계약서 날짜</h2>
+						<div class="form-group">
+						    <div id='calendar-container'>
+						        <div id="calendar"></div>
+						    </div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 mb-30">
+					<div class="card-box height-100-p pd-20">
+						<h2 class="h4 mb-20">원자재 현황</h2>
+						<div class="low-stock-container">
+							<div class="table-wrapper">
+						    <table>
+						        <thead>
+						            <tr>
+						                <th>품목명</th>
+						                <th>현재 재고</th>
+						                <th>권장 재고량</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						            <tr th:each="item : ${inventoryListVO}" 
+						                th:class="${item.inven_amount &lt; item.inven_appropriate_amount} ? 'low-stock' : ''">
+						                <td th:text="${item.inven_name}"></td>
+						                <td th:text="${item.inven_amount}"></td>
+						                <td th:text="${item.inven_appropriate_amount}"></td>
+						            </tr>
+						            
+						            <!-- 재고 부족 품목이 없을 경우 -->
+						            <tr class="no-stock" style="display: none;">
+						                <td colspan="3">없음</td>
+						            </tr>
+						        </tbody>
+						    </table>
+						    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div>
+				<div class="col-xl-4 mb-30">
+					<div class="card-box height-100-p pd-20">
+						<h5>자주 거래한 협력사 Top5 (최근 7일)</h5>
+						<div id="apexchart2"></div>
+					</div>
+				</div>
+				
+			</div>
+			
+			
+			
+			<div class="card-box mb-30">
+				<h2 class="h4 pd-20">이번 주 인기상품 Top5 (최근 7일)</h2>
+				<table class="data-table table nowrap bestseller-table">
+					<thead>
+						<tr>
+							<th width="7%" class="table-plus datatable-nosort">제품</th>
+							<th>제품명</th>
+							<th>제조사</th>
+							<th>카테고리</th>
+							<th>가격(원)</th>
+							<th>판매량</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="product,stat: ${productSales}" th:if="${stat.index<5}">
+							<tr>
+								<td class="table-plus">
+									<img th:src="${product.product_img}" width="70" height="70" alt="">
+								</td>
+								<td>
+									<h5 class="font-16"><th:block th:text="${product.product_name}"/></h5>
+									by <th:block th:text="${product.product_brand}"/>
+								</td>
+								<td><th:block th:text="${product.product_brand}"/></td>
+								<td><th:block th:text="${product.product_category}"/></td>
+								<td><th:block th:text="${#numbers.formatInteger(product.product_price,3,'COMMA')}"/></td>
+								<td><th:block th:text="${product.released}"/></td>
+								<td></td>
+							</tr>
+						</th:block>
+						
+					</tbody>
+				</table>
+			</div>
+			<div class="footer-wrap pd-20 mb-20 card-box">
+				DeskApp - Bootstrap 4 Admin Template By <a href="https://github.com/dropways" target="_blank">Ankit Hingarajiya</a>
+			</div>
+		</div>
+	</div>
+	<!-- js -->
+	<script src="vendors/scripts/core.js"></script>
+	<script src="vendors/scripts/script.min.js"></script>
+	<script src="vendors/scripts/process.js"></script>
+	<script src="vendors/scripts/layout-settings.js"></script>
+	<script src="src/plugins/apexcharts/apexcharts.min.js"></script>
+	<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+	<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+	<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+	<script src="vendors/scripts/dashboard.js"></script>
+	
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script>
+		$().ready(function () {
+			  
+			$("#quotation-detail").click(function () {
+				Swal.fire({
+					icon: 'success',
+					title: 'Quotation-detail',
+					text: '계약서 작성 화면으로 이동합니다.',
+				}).then(function() {
+					location.href="quotation-detail";
+				});
+			});
+			  
+		});
+	</script>
+	
+<script>
+	
+fetch('/getCompanyNameList') // 엔드포인트 호출
+.then(response => response.json()) // JSON 형식으로 변환
+.then(companyNameList => {
+    var options = {
+		series: [44, 55, 13, 43, 22],
+		chart: {
+	        width: 380,
+	        type: 'pie',
+		},
+		labels: [companyNameList[0],companyNameList[1],companyNameList[2],companyNameList[3],companyNameList[4]],
+		responsive: [{
+			breakpoint: 480,
+	        options: {
+				chart: {
+					width: 200
+				},
+				legend: {
+					position: 'bottom'
+				}
+			}
+		}]
+	};
+    var chart = new ApexCharts(document.querySelector("#apexchart1"), options);
+    chart.render();
+})
+.catch(error => {
+    console.error('Error fetching company names:', error);
+});
+
+
+fetch('/getCompanyListWithSales') // 엔드포인트 호출
+.then(response => response.json()) // JSON 형식으로 변환
+.then(map => {
+	
+    var options = {
+		series: map.companyTotalSales,
+		chart: {
+	        width: 380,
+	        type: 'pie',
+		},
+		labels: map.companyName,
+		responsive: [{
+			breakpoint: 480,
+	        options: {
+				chart: {
+					width: 200
+				},
+				legend: {
+					position: 'bottom'
+				}
+			}
+		}]
+	};
+    var chart = new ApexCharts(document.querySelector("#apexchart2"), options);
+    chart.render();
+})
+.catch(error => {
+    console.error('Error fetching company names:', error);
+});
+
+
+
+</script>
+
+<script th:src="@{https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js}"></script>
+
+<script>
+
+$(document).ready(function () {
+    let calendarTag = $('#calendar')[0];                    // full-calendar 생성하기
+    let calendar = new FullCalendar.Calendar(calendarTag, {
+        height: '550px',                        // calendar 높이 설정
+        expandRows: true,                       // 화면에 맞게 높이 재설정
+        slotMinTime: '00:00',                   // Day 캘린더에서 시작 시간
+        slotMaxTime: '23:59',                   // Day 캘린더에서 종료 시간
+
+        customButtons: {                        // 사용자가 만드는 버튼
+            testButton: {
+                text: "테스트버튼"
+            }
+        },
+        // 해더에 표시할 툴바
+        headerToolbar: {                                // customButton 은 left 또는 right 안에 넣으면 적용 된다
+            left: 'prevYear,prev,next,nextYear today',  // today는 , 와 띄어쓰기에 따라서 위치가 바뀐다
+            // left: 'prev,next,today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+        },
+        initialView: 'dayGridMonth',    // 로드 될때 캘린더 화면 기본 설정
+        // initialDate: '2024-07-23',      // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
+        navLinks: true,                 // 날짜를 선택하면 Day 캘린더나 Week 캘린더로 링크
+        editable: true,                 // default : false 이벤트 드래그 등의 편집여부를 설정함
+        selectable: true,               // 일자 드래그 설정
+        nowIndicator: true,             // 현재 시간 마크
+        dayMaxEvents: true,             // 이벤트가 많아지면 + 로 이벤트 표시
+        locale: 'ko',                   // 한국어 설정
+        eventAdd: function (obj) {      // 이벤트 추가 시 발생
+            console.log("eventAdd : " + obj);
+        },
+        eventChange: function (obj) {    // 이벤트 수정 시 발생
+            console.log("eventChange : " + obj);
+        },
+        eventRemove: function (obj) {     // 이벤트 삭제 시 발생
+            console.log("eventRemove : " + obj);
+        },
+        select: function (arg) {          // 일자를 드래그하면 실행됨
+            let title = prompt('일정 입력');
+            if (title) {
+                let newData = {
+                        title: title,
+                        start: arg.start,
+                        end: arg.end,
+                        allDay: arg.allDay
+                }
+
+                $.ajax({
+                    url: "/calendarSave",
+                    method: "POST",
+                    dataType: "json",
+                    data: JSON.stringify(newData),
+                    contentType: 'application/json',
+                    success:function (data){
+                        if(data != null){
+                            calendar.addEvent({
+                                id: data.calendarNo,
+                                title: data.title,
+                                start: data.start1,
+                                end: data.end,
+                                allDay: data.allDay,
+                                editable: true                 // default : false 이벤트 드래그 등의 편집여부를 설정함
+                            });
+                        }
+                    }
+                })
+            }
+            calendar.unselect()
+        },
+        eventClick: function (arg) {
+            // 일정 클릭 시
+            if (confirm("선택한 일정을 삭제하시겠습니까?")) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/calendarDelete",
+                    data: {"no" : arg.event.id},
+                    success: function (data) {
+                        if (data == "success") {
+                            alert("삭제하였습니다.");
+                            arg.event.remove();
+                        }else{
+                            alert("오류가 발생하였습니다");
+                        }
+                    }
+                })
+            }
+        },
+        eventDrop: function(arg) {              // 일정을 이동시킬때, 드래그하여 시작일과 종료일이 변경되는 경우 동작
+            let event = {
+                id: arg.event.id,
+                title: arg.event.title,
+                start1: arg.event._instance.range.start,
+                end: arg.event._instance.range.end ? arg.event._instance.range.end : null,
+                allDay: arg.event.allDay
+            };
+            $.ajax({
+                url: '/eventUpdate/' + arg.event.id,
+                method: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(event)
+            });
+        },
+        eventResize: function(arg) {            // 일정의 크기를 변경시킬때 동작(일정을 늘릴때)
+            let event = {
+                id: arg.event.id,
+                title: arg.event.title,
+                start1: arg.event._instance.range.start,
+                end: arg.event._instance.range.end ? arg.event._instance.range.end : null,
+                allDay: arg.event.allDay
+            };
+            $.ajax({
+                url: '/eventUpdate/' + arg.event.id,
+                method: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(event)
+            });
+        },
+        // 이벤트
+        events: [
+            $.ajax({
+                type: "get",
+                url: "/calendarList",
+                success: function (data) {
+                    if (data != null) {
+                        for (let i = 0; i < data.length; i++) {
+                            calendar.addEvent({
+                                id: data[i].calendarNo,
+                                title: data[i].title,
+                                start: data[i].start1,
+                                end: data[i].end,
+                                allDay: data[i].allDay,
+                                editable: true                 // default : false 이벤트 드래그 등의 편집여부를 설정함
+                            })
+                        }
+                    }
+                }
+            })
+        ]
+    });
+    // 캘린더 랜더링
+    calendar.render();
+
+});
+
+</script>
+
+	
+	
+</body>
+</html>
