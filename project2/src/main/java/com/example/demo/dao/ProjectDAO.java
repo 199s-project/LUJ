@@ -10,6 +10,7 @@ import com.example.demo.dto.AvgMaterialpriceVO;
 import com.example.demo.dto.CompanyVO;
 import com.example.demo.dto.FileVO;
 import com.example.demo.dto.InventoryAppropriateAmountVO;
+import com.example.demo.dto.InventoryProductAppropriateAmountVO;
 import com.example.demo.dto.InventoryVO;
 import com.example.demo.dto.MaterialVO;
 import com.example.demo.dto.MemberVO;
@@ -327,6 +328,8 @@ public interface ProjectDAO {
    int deleteOrderform(int orderform_num);
    
    int deleteOrderformDetail(int orderform_num);
+   
+   List<InventoryProductAppropriateAmountVO> getInventoryProductAppropriateAmount();
    
 // new 작업공간 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 이의재 끝   
    

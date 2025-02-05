@@ -31,8 +31,10 @@ public class HomeController {
 		//이의재 시작
 		
 		List<InventoryVO> inventoryListVO = projectService.getInventoryMaterialList();
+		List<InventoryVO> productListVO = projectService.getInventoryProductList();
 		
 		model.addAttribute("inventoryListVO", inventoryListVO);
+		model.addAttribute("productListVO", productListVO);
 		//이의재 끝
 		
 		

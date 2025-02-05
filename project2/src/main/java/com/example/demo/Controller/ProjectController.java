@@ -4,7 +4,6 @@ package com.example.demo.Controller;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -29,6 +28,7 @@ import com.example.demo.dto.AvgMaterialpriceVO;
 import com.example.demo.dto.CompanyVO;
 import com.example.demo.dto.FileVO;
 import com.example.demo.dto.InventoryAppropriateAmountVO;
+import com.example.demo.dto.InventoryProductAppropriateAmountVO;
 import com.example.demo.dto.InventoryVO;
 import com.example.demo.dto.MaterialVO;
 import com.example.demo.dto.MemberVO;
@@ -983,6 +983,13 @@ public class ProjectController {
 	    
 		return result;
 	}
+	
+    @ResponseBody
+    @PostMapping("/getInventoryProductAppropriateAmount")
+    public ResponseEntity<List<InventoryProductAppropriateAmountVO>> getInventoryProductAppropriateAmount() throws Exception {
+    	List<InventoryProductAppropriateAmountVO> inventoryProductAppropriateAmountListVO = projectService.getInventoryProductAppropriateAmount();
+    	return ResponseEntity.ok(inventoryProductAppropriateAmountListVO);
+    }
 
     
  // -------------------------new 작업공간(이의재) -------------------------    

@@ -244,6 +244,37 @@ th, td {
 						</div>
 					</div>
 				</div>
+				<div class="col-xl-4 mb-30">
+					<div class="card-box height-100-p pd-20">
+						<h2 class="h4 mb-20">완제품 현황</h2>
+						<div class="low-stock-container">
+							<div class="table-wrapper">
+						    <table>
+						        <thead>
+						            <tr>
+						                <th>품목명</th>
+						                <th>현재 재고</th>
+						                <th>권장 재고량</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						            <tr th:each="item : ${productListVO}" 
+						                th:class="${item.inven_amount &lt; item.inven_appropriate_amount} ? 'low-stock' : ''">
+						                <td th:text="${item.inven_name}"></td>
+						                <td th:text="${item.inven_amount}"></td>
+						                <td th:text="${item.inven_appropriate_amount}"></td>
+						            </tr>
+						            
+						            <!-- 재고 부족 품목이 없을 경우 -->
+						            <tr class="no-stock" style="display: none;">
+						                <td colspan="3">없음</td>
+						            </tr>
+						        </tbody>
+						    </table>
+						    </div>
+						</div>
+					</div>
+				</div>
 			</div>
 			
 			<div>

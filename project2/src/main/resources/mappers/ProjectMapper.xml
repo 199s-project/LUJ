@@ -856,6 +856,21 @@
 		where orderform_num = #{orderform_num}
 	</delete>
 	
+	<select id="getInventoryProductAppropriateAmount" resultType="InventoryProductAppropriateAmountVO">
+		select p.product_name, 
+		SUM(qd.quotdetail_amount) AS total_amount,
+		round(SUM(qd.quotdetail_amount) * 0.1)  AS appropriate_amount
+		
+		from quotation q ,  quotationdetail qd, product p, recipe r, recipedetail rd
+		where q.quot_enddate &gt;= DATE_FORMAT(NOW() - INTERVAL 1 MONTH, '%Y-%m-01')
+		AND q.quot_enddate &lt; DATE_FORMAT(NOW(), '%Y-%m-01')
+		AND q.quot_num = qd.quot_num
+		ANd qd.product_num = p.product_num
+		AND p.product_code = r.product_code
+		AND r.recipe_num = rd.recipe_num
+		group by p.product_name;
+	</select>
+	
 	
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@new 작업공간@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 이의재  끝 -->
 

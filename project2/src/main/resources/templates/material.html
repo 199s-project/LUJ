@@ -673,19 +673,11 @@ function rowmaterialChange(event) {
         if (materialAmountInput) materialAmountInput.value = ''; // Clear associated unit price
     }
 }
-
-
-
-
-
 </script>
-
-
 </head>
 <body>
 	<div th:replace="~{/include/header}"></div>
 	<div class="mobile-menu-overlay"></div>
-
 	<div class="main-container">
 		<div class="pd-ltr-20 xs-pd-20-10">
 			<div class="min-height-200px">
@@ -715,16 +707,10 @@ function rowmaterialChange(event) {
 						</div>
 					</div>
 				</div>
-				
-				
-				
-				
 				<!-- Export Datatable start -->
-				
 				<div class="product-wrap">
 					<div class="product-list">
 						<ul class="row">
-						
 							<th:block th:each="material,stat: ${MaterialList}">
 								<li class="col-lg-4 col-md-6 col-sm-12">
 									<div class="product-box">
@@ -743,8 +729,6 @@ function rowmaterialChange(event) {
 									</div>
 								</li>
 							</th:block>
-						
-						
 						</ul>
 					</div>
 					<div class="blog-pagination mb-30">
@@ -761,35 +745,8 @@ function rowmaterialChange(event) {
 						</div>
 					</div>
 				</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 				<!-- Export Datatable End -->
-				
-				
-				
 			</div>
-			
-			
-			
-			
-			
-			
 			<div class="footer-wrap pd-20 mb-20 card-box">
 				DeskApp - Bootstrap 4 Admin Template By <a href="https://github.com/dropways" target="_blank">Ankit Hingarajiya</a>
 			</div>
